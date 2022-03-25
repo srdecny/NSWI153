@@ -18,7 +18,7 @@
 {#if $todos.fetching}
 	<p>Loading...</p>
 {:else if $todos.error}
-                <p>Oh no... {$todos.error.message}</p>
+	<p>Oh no... {$todos.error.message}</p>
 {:else}
 	<DataTable>
 		<Head>
