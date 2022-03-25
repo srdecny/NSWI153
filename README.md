@@ -4,7 +4,7 @@ For now, we do not care about running the individual components in production-mo
 # Components
 
 ## Client
-SvelteKit app that serves both as a frontend and as a backend.
+SvelteKit app that serves both as a frontend and as a backend. Uses https://sveltematerialui.com as a component framework (literally Material)
 
 ## Hasura
 GraphQL + REST API for CRUD operations, utilizing postgres DB under the hood to store the data.
@@ -21,6 +21,9 @@ See the docker-compose files for port numbers of the individual services.
 
 ## npm install
 When you add new packages to the client via `npm install`, restart the docker-compose stack with `docker-compose down -v && docker-compose up --build` so the container with the client will have the newly installed npm package.
+
+## Client components
+Read https://sveltematerialui.com/SVELTEKIT.md. You need to install the components individually and then rebuild the theme via `npm run prepare`
 
 ## Hasura
 Hasura requires an user to specify which tables from the postgres database are "tracked". This has to be done manually and there's no real way to autotrack all tables. As a workaround, the `hasura/entrypoint.sh` contains a CURL request that will track all tables. However, all table names that are to be tracked have to be manually listed in that request. Thus, when you create a new table in the database (via `db/*.sql` scripts), you also have to put that table into the CURL request.
