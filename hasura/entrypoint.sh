@@ -1,7 +1,10 @@
 #!/bin/bash
+
+# Sometimes hasura loads faster than postres and crashes because it can't connect to it
+./wait-for-it.sh -h postgres -p 5432 -t 60
+
 graphql-engine serve & \
 
-# wait for Hasura to get ready to start
 while ! curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/v1/graphql; do
   echo "Waiting for Hasura to get ready..."
   sleep 1
