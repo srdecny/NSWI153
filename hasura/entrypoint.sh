@@ -1,7 +1,13 @@
 #!/bin/bash
 graphql-engine serve & \
-sleep 10000
 
+# wait for Hasura to get ready to start
+while ! curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/v1/graphql; do
+  echo "Waiting for Hasura to get ready..."
+  sleep 1
+done
+
+sleep 1
 
 curl 'http://localhost:8080/v1/metadata' \
   -H 'Connection: keep-alive' \
