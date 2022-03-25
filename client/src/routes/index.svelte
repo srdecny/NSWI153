@@ -1,6 +1,6 @@
 <script>
 	import { operationStore, query } from '@urql/svelte';
-    import DataTable, { Head, Row, Body, Cell } from '@smui/data-table';
+	import DataTable, { Head, Row, Body, Cell } from '@smui/data-table';
 
 	const todos = operationStore(`
     query {
@@ -20,20 +20,20 @@
 {:else if $todos.error}
 	<p>Oh no... {$todos.error.message}</p>
 {:else}
-    <DataTable>
-        <Head>
-            <Row>
-                <Cell >id</Cell>
-                <Cell >name</Cell>
-            </Row>
-        </Head>
-        <Body>
-            {#each $todos.data.test_table as todo}
-            <Row>
-                <Cell>{todo.id}</Cell>
-                <Cell>{todo.name}</Cell>
-            </Row>
-            {/each}
-        </Body>
-    </DataTable>
+	<DataTable>
+		<Head>
+			<Row>
+				<Cell>id</Cell>
+				<Cell>name</Cell>
+			</Row>
+		</Head>
+		<Body>
+			{#each $todos.data.test_table as todo}
+				<Row>
+					<Cell>{todo.id}</Cell>
+					<Cell>{todo.name}</Cell>
+				</Row>
+			{/each}
+		</Body>
+	</DataTable>
 {/if}
