@@ -19,4 +19,6 @@ jobs:
         uses: creyD/prettier_action@v4.2
         with:
           prettier_plugins: "prettier-plugin-svelte"
+          prettier_options: --write **/*.{js,svelte}
+
 
