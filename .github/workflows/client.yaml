@@ -1,0 +1,24 @@
+name: Client CI
+
+on:
+  pull_request:
+    paths:
+      - ./client/**
+  push:
+    paths:
+      - ./client/**
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Run Prettier
+        uses: creyD/prettier_action@v4.2
+        with:
+          prettier_plugins: "prettier-plugin-svelte"
+
