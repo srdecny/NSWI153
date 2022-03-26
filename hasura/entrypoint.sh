@@ -28,7 +28,7 @@ curl 'http://localhost:8080/v1/metadata' \
   -H 'Referer: http://localhost:8080/console/data/default/schema/public' \
   -H 'Accept-Language: en' \
   -H 'Cookie: _xsrf=2|a6d1131f|2cdf65cabccabd2110fe2bd7a0dced84|1646956053' \
-  --data-raw '{"type":"bulk","source":"default","resource_version":1,"args":[{"type":"pg_track_table","args":{"table":{"name":"test_table","schema":"public"},"source":"default"}}]}' \
+  --data-raw '{"type":"bulk","source":"default","resource_version":1,"args":[{"type":"pg_track_table","args":{"table":{"name":"records","schema":"public"},"source":"default"}}]}' \
   --compressed
 
 tail -F /dev/null
