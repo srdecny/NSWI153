@@ -14,8 +14,8 @@ jobs:
       - name: Run Prettier
         uses: creyD/prettier_action@v4.2
         with:
-          prettier_plugins: "eslint-plugin-prettier-vue"
-          prettier_options: --write **/*.{js,ts,vue}
+          prettier_options: --write **/*.{js,ts,vue,scss,html,md,json}
+          working_directory: ./vue
   docker-build:
       runs-on: ubuntu-latest
       steps:
