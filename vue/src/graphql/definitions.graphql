@@ -1,0 +1,17 @@
+query AllRecords {
+  records {
+    id
+    active
+    boundary
+    label
+    periodicity
+    tags
+    url
+  }
+}
+
+mutation InsertRecord($tags: String = "", $url: String = "", $periodicity: Int = 10, $label: String = "", $boundary: String = "", $active: Boolean = false) {
+  insert_records_one(object: {active: $active, boundary: $boundary, label: $label, periodicity: $periodicity, tags: $tags, url: $url}) {
+    id
+  }
+}
