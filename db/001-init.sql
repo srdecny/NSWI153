@@ -1,7 +1,11 @@
-CREATE TABLE test_table (
-  id INTEGER PRIMARY KEY,
-  name TEXT NOT NULL
+CREATE TABLE records (
+  id SERIAL PRIMARY KEY,
+  url TEXT NOT NULL,
+  boundary TEXT NOT NULL,
+  periodicity INTEGER NOT NULL,
+  label TEXT NOT NULL,
+  active BOOLEAN NOT NULL,
+  tags TEXT
 );
 
-
-INSERT INTO test_table VALUES (1, 'test'), (2, 'test2');
+INSERT INTO records (url, boundary, periodicity, label, active, tags) VALUES ('http://www.example.com/', '/example.com/', 60, 'Example', TRUE, '');
