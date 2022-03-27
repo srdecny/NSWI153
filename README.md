@@ -25,7 +25,8 @@ When you add new packages to the client via `npm install`, restart the docker-co
 ## Client components
 Read https://sveltematerialui.com/SVELTEKIT.md. You need to install the components individually and then rebuild the theme via `npm run prepare`
 
-For now, the SMUI/common package is using a fork with a fix, until that fork gets merged to upstream: https://github.com/hperrin/svelte-material-ui/pull/431
+Wait for this to get merged, then force svelte-check again https://github.com/hperrin/svelte-material-ui/pull/431
+https://github.com/sveltejs/language-tools/issues/1056
 
 ## Hasura
 Hasura requires an user to specify which tables from the postgres database are "tracked". This has to be done manually and there's no real way to autotrack all tables. As a workaround, the `hasura/entrypoint.sh` contains a CURL request that will track all tables. However, all table names that are to be tracked have to be manually listed in that request. Thus, when you create a new table in the database (via `db/*.sql` scripts), you also have to put that table into the CURL request.
