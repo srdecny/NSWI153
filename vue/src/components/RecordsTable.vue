@@ -1,18 +1,25 @@
 <template>
   <div v-if="records">
-    <q-table :rows="records.records" :columns="columns" row-key="id" />
+    <q-table
+      selection="single"
+      v-model:selected="selected"
+      :rows="records.records"
+      :columns="columns"
+      row-key="id"
+    />
   </div>
   <div v-else>
     <q-spinner color="primary" size="3em" />
   </div>
-  <NewRecordForm />
+  <NewRecordForm v-if="selected.length == 0" />
+  <EditRecordForm v-else :record="{ ...selected[0] }" />
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { QTableProps } from 'quasar';
-import { defineComponent } from 'vue';
+import { ref } from 'vue';
 import NewRecordForm from './NewRecordForm.vue';
-
+import EditRecordForm from './EditRecordForm.vue'
 import { useAllRecordsQuery, Records } from '../graphql/_generated';
 
 const columns: QTableProps['columns'] = [
@@ -43,17 +50,7 @@ const columns: QTableProps['columns'] = [
   },
 ];
 
-export default defineComponent({
-  name: 'RecordsTable',
-  components: {
-    NewRecordForm,
-  },
-  data() {
-    const records = useAllRecordsQuery();
-    return {
-      records: records.data,
-      columns,
-    };
-  },
-});
+const records = useAllRecordsQuery().data;
+const selected = ref([])
+
 </script>

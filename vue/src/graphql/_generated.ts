@@ -2,15 +2,9 @@ import gql from 'graphql-tag';
 import * as Urql from '@urql/vue';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -34,6 +28,17 @@ export type Boolean_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['Boolean']>>;
 };
 
+export type GetRecordOutput = {
+  __typename?: 'GetRecordOutput';
+  active: Scalars['Boolean'];
+  boundary: Scalars['String'];
+  id: Scalars['Int'];
+  label: Scalars['String'];
+  periodicity: Scalars['Int'];
+  tags?: Maybe<Scalars['String']>;
+  url: Scalars['String'];
+};
+
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type Int_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['Int']>;
@@ -45,6 +50,11 @@ export type Int_Comparison_Exp = {
   _lte?: InputMaybe<Scalars['Int']>;
   _neq?: InputMaybe<Scalars['Int']>;
   _nin?: InputMaybe<Array<Scalars['Int']>>;
+};
+
+export type MyMutationOutput = {
+  __typename?: 'MyMutationOutput';
+  id: Scalars['Int'];
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
@@ -83,6 +93,8 @@ export type String_Comparison_Exp = {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
+  /** Update record */
+  MyMutation?: Maybe<MyMutationOutput>;
   /** delete data from the table: "records" */
   delete_records?: Maybe<Records_Mutation_Response>;
   /** delete single row from the table: "records" */
@@ -97,15 +109,29 @@ export type Mutation_Root = {
   update_records_by_pk?: Maybe<Records>;
 };
 
+
+/** mutation root */
+export type Mutation_RootMyMutationArgs = {
+  active?: InputMaybe<Scalars['Boolean']>;
+  boundary?: InputMaybe<Scalars['String']>;
+  label?: InputMaybe<Scalars['String']>;
+  periodicity?: InputMaybe<Scalars['Int']>;
+  tags?: InputMaybe<Scalars['String']>;
+  url?: InputMaybe<Scalars['String']>;
+};
+
+
 /** mutation root */
 export type Mutation_RootDelete_RecordsArgs = {
   where: Records_Bool_Exp;
 };
 
+
 /** mutation root */
 export type Mutation_RootDelete_Records_By_PkArgs = {
   id: Scalars['Int'];
 };
+
 
 /** mutation root */
 export type Mutation_RootInsert_RecordsArgs = {
@@ -113,11 +139,13 @@ export type Mutation_RootInsert_RecordsArgs = {
   on_conflict?: InputMaybe<Records_On_Conflict>;
 };
 
+
 /** mutation root */
 export type Mutation_RootInsert_Records_OneArgs = {
   object: Records_Insert_Input;
   on_conflict?: InputMaybe<Records_On_Conflict>;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_RecordsArgs = {
@@ -125,6 +153,7 @@ export type Mutation_RootUpdate_RecordsArgs = {
   _set?: InputMaybe<Records_Set_Input>;
   where: Records_Bool_Exp;
 };
+
 
 /** mutation root */
 export type Mutation_RootUpdate_Records_By_PkArgs = {
@@ -146,11 +175,12 @@ export enum Order_By {
   /** in descending order, nulls first */
   DescNullsFirst = 'desc_nulls_first',
   /** in descending order, nulls last */
-  DescNullsLast = 'desc_nulls_last',
+  DescNullsLast = 'desc_nulls_last'
 }
 
 export type Query_Root = {
   __typename?: 'query_root';
+  getRecord?: Maybe<GetRecordOutput>;
   /** fetch data from the table: "records" */
   records: Array<Records>;
   /** fetch aggregated fields from the table: "records" */
@@ -158,6 +188,12 @@ export type Query_Root = {
   /** fetch data from the table: "records" using primary key columns */
   records_by_pk?: Maybe<Records>;
 };
+
+
+export type Query_RootGetRecordArgs = {
+  id?: InputMaybe<Scalars['Int']>;
+};
+
 
 export type Query_RootRecordsArgs = {
   distinct_on?: InputMaybe<Array<Records_Select_Column>>;
@@ -167,6 +203,7 @@ export type Query_RootRecordsArgs = {
   where?: InputMaybe<Records_Bool_Exp>;
 };
 
+
 export type Query_RootRecords_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Records_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -174,6 +211,7 @@ export type Query_RootRecords_AggregateArgs = {
   order_by?: InputMaybe<Array<Records_Order_By>>;
   where?: InputMaybe<Records_Bool_Exp>;
 };
+
 
 export type Query_RootRecords_By_PkArgs = {
   id: Scalars['Int'];
@@ -214,6 +252,7 @@ export type Records_Aggregate_Fields = {
   variance?: Maybe<Records_Variance_Fields>;
 };
 
+
 /** aggregate fields of "records" */
 export type Records_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Records_Select_Column>>;
@@ -244,7 +283,7 @@ export type Records_Bool_Exp = {
 /** unique or primary key constraints on table "records" */
 export enum Records_Constraint {
   /** unique or primary key constraint */
-  RecordsPkey = 'records_pkey',
+  RecordsPkey = 'records_pkey'
 }
 
 /** input type for incrementing numeric columns in table "records" */
@@ -333,7 +372,7 @@ export enum Records_Select_Column {
   /** column name */
   Tags = 'tags',
   /** column name */
-  Url = 'url',
+  Url = 'url'
 }
 
 /** input type for updating data in table "records" */
@@ -390,7 +429,7 @@ export enum Records_Update_Column {
   /** column name */
   Tags = 'tags',
   /** column name */
-  Url = 'url',
+  Url = 'url'
 }
 
 /** aggregate var_pop on columns */
@@ -424,6 +463,7 @@ export type Subscription_Root = {
   records_by_pk?: Maybe<Records>;
 };
 
+
 export type Subscription_RootRecordsArgs = {
   distinct_on?: InputMaybe<Array<Records_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -431,6 +471,7 @@ export type Subscription_RootRecordsArgs = {
   order_by?: InputMaybe<Array<Records_Order_By>>;
   where?: InputMaybe<Records_Bool_Exp>;
 };
+
 
 export type Subscription_RootRecords_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Records_Select_Column>>;
@@ -440,25 +481,15 @@ export type Subscription_RootRecords_AggregateArgs = {
   where?: InputMaybe<Records_Bool_Exp>;
 };
 
+
 export type Subscription_RootRecords_By_PkArgs = {
   id: Scalars['Int'];
 };
 
-export type AllRecordsQueryVariables = Exact<{ [key: string]: never }>;
+export type AllRecordsQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type AllRecordsQuery = {
-  __typename?: 'query_root';
-  records: Array<{
-    __typename?: 'records';
-    id: number;
-    active: boolean;
-    boundary: string;
-    label: string;
-    periodicity: number;
-    tags?: string | null;
-    url: string;
-  }>;
-};
+
+export type AllRecordsQuery = { __typename?: 'query_root', records: Array<{ __typename?: 'records', id: number, active: boolean, boundary: string, label: string, periodicity: number, tags?: string | null, url: string }> };
 
 export type InsertRecordMutationVariables = Exact<{
   tags?: InputMaybe<Scalars['String']>;
@@ -469,62 +500,88 @@ export type InsertRecordMutationVariables = Exact<{
   active?: InputMaybe<Scalars['Boolean']>;
 }>;
 
-export type InsertRecordMutation = {
-  __typename?: 'mutation_root';
-  insert_records_one?: { __typename?: 'records'; id: number } | null;
-};
+
+export type InsertRecordMutation = { __typename?: 'mutation_root', insert_records_one?: { __typename?: 'records', id: number } | null };
+
+export type UpdateRecordMutationVariables = Exact<{
+  id?: InputMaybe<Scalars['Int']>;
+  active?: InputMaybe<Scalars['Boolean']>;
+  boundary?: InputMaybe<Scalars['String']>;
+  tags?: InputMaybe<Scalars['String']>;
+  label?: InputMaybe<Scalars['String']>;
+  periodicity?: InputMaybe<Scalars['Int']>;
+  url?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type UpdateRecordMutation = { __typename?: 'mutation_root', update_records_by_pk?: { __typename?: 'records', id: number } | null };
+
+export type GetRecordQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetRecordQuery = { __typename?: 'query_root', records_by_pk?: { __typename?: 'records', active: boolean, boundary: string, id: number, label: string, periodicity: number, tags?: string | null, url: string } | null };
+
 
 export const AllRecordsDocument = gql`
-  query AllRecords {
-    records {
-      id
-      active
-      boundary
-      label
-      periodicity
-      tags
-      url
-    }
+    query AllRecords {
+  records {
+    id
+    active
+    boundary
+    label
+    periodicity
+    tags
+    url
   }
-`;
-
-export function useAllRecordsQuery(
-  options: Omit<
-    Urql.UseQueryArgs<never, AllRecordsQueryVariables>,
-    'query'
-  > = {}
-) {
-  return Urql.useQuery<AllRecordsQuery>({
-    query: AllRecordsDocument,
-    ...options,
-  });
 }
+    `;
+
+export function useAllRecordsQuery(options: Omit<Urql.UseQueryArgs<never, AllRecordsQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<AllRecordsQuery>({ query: AllRecordsDocument, ...options });
+};
 export const InsertRecordDocument = gql`
-  mutation InsertRecord(
-    $tags: String = ""
-    $url: String = ""
-    $periodicity: Int = 10
-    $label: String = ""
-    $boundary: String = ""
-    $active: Boolean = false
+    mutation InsertRecord($tags: String = "", $url: String = "", $periodicity: Int = 10, $label: String = "", $boundary: String = "", $active: Boolean = false) {
+  insert_records_one(
+    object: {active: $active, boundary: $boundary, label: $label, periodicity: $periodicity, tags: $tags, url: $url}
   ) {
-    insert_records_one(
-      object: {
-        active: $active
-        boundary: $boundary
-        label: $label
-        periodicity: $periodicity
-        tags: $tags
-        url: $url
-      }
-    ) {
-      id
-    }
+    id
   }
-`;
+}
+    `;
 
 export function useInsertRecordMutation() {
-  return Urql.useMutation<InsertRecordMutation, InsertRecordMutationVariables>(
-    InsertRecordDocument
-  );
+  return Urql.useMutation<InsertRecordMutation, InsertRecordMutationVariables>(InsertRecordDocument);
+};
+export const UpdateRecordDocument = gql`
+    mutation UpdateRecord($id: Int = 10, $active: Boolean = false, $boundary: String = "", $tags: String = "", $label: String = "", $periodicity: Int = 10, $url: String = "") {
+  update_records_by_pk(
+    pk_columns: {id: $id}
+    _set: {active: $active, boundary: $boundary, label: $label, tags: $tags, url: $url, periodicity: $periodicity}
+  ) {
+    id
+  }
 }
+    `;
+
+export function useUpdateRecordMutation() {
+  return Urql.useMutation<UpdateRecordMutation, UpdateRecordMutationVariables>(UpdateRecordDocument);
+};
+export const GetRecordDocument = gql`
+    query GetRecord($id: Int = 10) {
+  records_by_pk(id: $id) {
+    active
+    boundary
+    id
+    label
+    periodicity
+    tags
+    url
+  }
+}
+    `;
+
+export function useGetRecordQuery(options: Omit<Urql.UseQueryArgs<never, GetRecordQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<GetRecordQuery>({ query: GetRecordDocument, ...options });
+};

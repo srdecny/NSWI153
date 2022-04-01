@@ -8,6 +8,7 @@ import { createClient, provideClient } from '@urql/vue';
 
 const client = createClient({
   url: 'http://localhost:8080/v1/graphql',
+  maskTypename: true,
 });
 
 export default defineComponent({
