@@ -3,7 +3,7 @@
     <q-table
       selection="single"
       v-model:selected="selected"
-      :rows="records.records"
+      :rows="records.record"
       :columns="columns"
       row-key="id"
     />
@@ -20,33 +20,33 @@ import { QTableProps } from 'quasar';
 import { ref } from 'vue';
 import NewRecordForm from './NewRecordForm.vue';
 import EditRecordForm from './EditRecordForm.vue'
-import { useAllRecordsQuery, Records } from '../graphql/_generated';
+import { useAllRecordsQuery, Record } from '../graphql/_generated';
 
 const columns: QTableProps['columns'] = [
   {
     name: 'url',
     label: 'URL',
-    field: (row: Records) => row.url,
+    field: (row: Record) => row.url,
   },
   {
     name: 'label',
     label: 'Label',
-    field: (row: Records) => row.label,
+    field: (row: Record) => row.label,
   },
   {
     name: 'boundary',
     label: 'Regex boundary',
-    field: (row: Records) => row.boundary,
+    field: (row: Record) => row.boundary,
   },
   {
     name: 'periodicity',
     label: 'Periodicity (seconds)',
-    field: (row: Records) => row.periodicity,
+    field: (row: Record) => row.periodicity,
   },
   {
     name: 'active',
     label: 'Is active?',
-    field: (row: Records) => row.active,
+    field: (row: Record) => row.active,
   },
 ];
 

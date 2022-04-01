@@ -1,4 +1,4 @@
-CREATE TABLE records (
+CREATE TABLE record (
   id SERIAL PRIMARY KEY,
   url TEXT NOT NULL,
   boundary TEXT NOT NULL,
@@ -8,4 +8,4 @@ CREATE TABLE records (
   tags TEXT
 );
 
-INSERT INTO records (url, boundary, periodicity, label, active, tags) VALUES ('http://www.example.com/', '/example.com/', 60, 'Example', TRUE, '');
+INSERT INTO record (url, boundary, periodicity, label, active, tags) VALUES ('http://www.example.com/', '/example.com/', 60, 'Example', TRUE, '');

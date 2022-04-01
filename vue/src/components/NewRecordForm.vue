@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useInsertRecordMutation, Records } from '../graphql/_generated';
+import { useInsertRecordMutation, Record } from '../graphql/_generated';
 
 const insertRecord = useInsertRecordMutation()
 const insertHandler = () => {
@@ -19,7 +19,7 @@ const emptyRecord = {
   active: false,
 }
 
-const record = ref<Omit<Records, 'id'>>({
+const record = ref<Omit<Record, 'id'>>({
   ...emptyRecord
 })
 
