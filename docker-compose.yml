@@ -17,6 +17,11 @@ services:
     volumes:
       - ./db:/docker-entrypoint-initdb.d
 
+  scraper:
+    build:
+      context: ./scraper
+    volumes:
+      - ./scraper:/scraper
   hasura:
     build:
       context: ./hasura
