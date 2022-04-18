@@ -20,7 +20,8 @@ INSERT INTO records (url, boundary, periodicity, label, active, tags) VALUES ('h
 */
 CREATE TABLE tags (
   id SERIAL PRIMARY KEY,
-  tag_name VARCHAR(64) NOT NULL
+  tag_name VARCHAR(64) NOT NULL,
+  UNIQUE (tag_name)
 );
 
 -- test data
@@ -39,7 +40,8 @@ CREATE TABLE tags_records_relations(
   FOREIGN KEY (tag_id)
     REFERENCES tags(id),
   FOREIGN KEY (record_id)
-    REFERENCES records(id)
+    REFERENCES records(id),
+  UNIQUE(record_id)
 );
 
 -- test data
