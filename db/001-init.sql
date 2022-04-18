@@ -17,5 +17,7 @@ CREATE TABLE Tags (
 );
 
 INSERT INTO Tags (tag_name) VALUES ('best');
+INSERT INTO Tags (tag_name) VALUES ('second');
+INSERT INTO Tags (tag_name) VALUES ('third');
 
 
