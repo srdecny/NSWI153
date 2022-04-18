@@ -12,6 +12,7 @@ CREATE TABLE record (
   tags TEXT
 );
 
+-- test data
 INSERT INTO record (url, boundary, periodicity, label, active, tags) VALUES ('http://www.example.com/', '/example.com/', 60, 'Example', TRUE, '');
 
 /*
@@ -19,9 +20,10 @@ INSERT INTO record (url, boundary, periodicity, label, active, tags) VALUES ('ht
 */
 CREATE TABLE Tags (
   id SERIAL PRIMARY KEY,
-  tag_name VARCHAR(64)
+  tag_name VARCHAR(64) NOT NULL
 );
 
+-- test data
 INSERT INTO Tags (tag_name) VALUES ('best');
 INSERT INTO Tags (tag_name) VALUES ('second');
 INSERT INTO Tags (tag_name) VALUES ('third');
@@ -30,4 +32,16 @@ INSERT INTO Tags (tag_name) VALUES ('third');
   Tags to records relation table.
 */
 
+CREATE TABLE TagsRecordsRelations(
+  id SERIAL PRIMARY KEY,
+  tag_id INT NOT NULL,
+  record_id INT NOT NULL,
+  FOREIGN KEY (tag_id)
+    REFERENCES Tags(id),
+  FOREIGN KEY (record_id)
+    REFERENCES record(id)
+);
+
+-- test data
+  INSERT INTO TagsRecordsRelations (tag_id, record_id) VALUES ( (SELECT id FROM Tags LIMIT 1), (SELECT id FROM record LIMIT 1) );
 
