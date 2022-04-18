@@ -2,7 +2,7 @@
   Records table.
 */
 
-CREATE TABLE record (
+CREATE TABLE records (
   id SERIAL PRIMARY KEY,
   url TEXT NOT NULL,
   boundary TEXT NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE record (
 );
 
 -- test data
-INSERT INTO record (url, boundary, periodicity, label, active, tags) VALUES ('http://www.example.com/', '/example.com/', 60, 'Example', TRUE, '');
+INSERT INTO records (url, boundary, periodicity, label, active, tags) VALUES ('http://www.example.com/', '/example.com/', 60, 'Example', TRUE, '');
 
 /*
   Tags table.
@@ -39,9 +39,9 @@ CREATE TABLE tags_records_relations(
   FOREIGN KEY (tag_id)
     REFERENCES tags(id),
   FOREIGN KEY (record_id)
-    REFERENCES record(id)
+    REFERENCES records(id)
 );
 
 -- test data
-  INSERT INTO tags_records_relations (tag_id, record_id) VALUES ( (SELECT id FROM tags LIMIT 1), (SELECT id FROM record LIMIT 1) );
+INSERT INTO tags_records_relations (tag_id, record_id) VALUES ( (SELECT id FROM tags LIMIT 1), (SELECT id FROM records LIMIT 1) );
 
