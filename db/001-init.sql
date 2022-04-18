@@ -9,3 +9,13 @@ CREATE TABLE record (
 );
 
 INSERT INTO record (url, boundary, periodicity, label, active, tags) VALUES ('http://www.example.com/', '/example.com/', 60, 'Example', TRUE, '');
+
+
+CREATE TABLE Tags (
+  id SERIAL PRIMARY KEY,
+  tag_name VARCHAR(64)
+);
+
+INSERT INTO Tags (tag_name) VALUES ('best');
+
+
