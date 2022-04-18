@@ -11,10 +11,11 @@ services:
       - vue-node-modules:/vue/node_modules
 
   postgres:
-    build:
-      context: ./db
+    image: postgres:12
     environment:
       POSTGRES_PASSWORD: postgrespassword
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
 
   hasura:
     build:
