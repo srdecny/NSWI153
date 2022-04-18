@@ -18,30 +18,30 @@ INSERT INTO record (url, boundary, periodicity, label, active, tags) VALUES ('ht
 /*
   Tags table.
 */
-CREATE TABLE Tags (
+CREATE TABLE tags (
   id SERIAL PRIMARY KEY,
   tag_name VARCHAR(64) NOT NULL
 );
 
 -- test data
-INSERT INTO Tags (tag_name) VALUES ('best');
-INSERT INTO Tags (tag_name) VALUES ('second');
-INSERT INTO Tags (tag_name) VALUES ('third');
+INSERT INTO tags (tag_name) VALUES ('best');
+INSERT INTO tags (tag_name) VALUES ('second');
+INSERT INTO tags (tag_name) VALUES ('third');
 
 /*
   Tags to records relation table.
 */
 
-CREATE TABLE TagsRecordsRelations(
+CREATE TABLE tags_records_relations(
   id SERIAL PRIMARY KEY,
   tag_id INT NOT NULL,
   record_id INT NOT NULL,
   FOREIGN KEY (tag_id)
-    REFERENCES Tags(id),
+    REFERENCES tags(id),
   FOREIGN KEY (record_id)
     REFERENCES record(id)
 );
 
 -- test data
-  INSERT INTO TagsRecordsRelations (tag_id, record_id) VALUES ( (SELECT id FROM Tags LIMIT 1), (SELECT id FROM record LIMIT 1) );
+  INSERT INTO tags_records_relations (tag_id, record_id) VALUES ( (SELECT id FROM tags LIMIT 1), (SELECT id FROM record LIMIT 1) );
 

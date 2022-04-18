@@ -64,7 +64,7 @@ curl 'http://localhost:8080/v1/metadata' \
   -H 'sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="100", "Google Chrome";v="100"' \
   -H 'sec-ch-ua-mobile: ?0' \
   -H 'sec-ch-ua-platform: "Windows"' \
-  --data-raw '{"type":"bulk","source":"default","resource_version":3,"args":[{"type":"pg_track_table","args":{"table":{"name":"tagsrecordsrelations","schema":"public"},"source":"default"}}]}' \
+  --data-raw '{"type":"bulk","source":"default","resource_version":3,"args":[{"type":"pg_track_table","args":{"table":{"name":"tags_records_relations","schema":"public"},"source":"default"}}]}' \
   --compressed
 
 tail -F /dev/null
