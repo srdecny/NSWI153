@@ -40,8 +40,7 @@ CREATE TABLE tags_records_relations(
   FOREIGN KEY (tag_id)
     REFERENCES tags(id),
   FOREIGN KEY (record_id)
-    REFERENCES records(id),
-  UNIQUE(record_id)
+    REFERENCES records(id)
 );
 
 -- test data
